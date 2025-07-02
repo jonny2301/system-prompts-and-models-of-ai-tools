@@ -40,6 +40,7 @@ def validate_file(json_path: Path) -> None:
 
 
 def validate_directory(directory: Path) -> None:
+    """Validate all JSON templates in *directory* recursively."""
     directory = Path(directory)
-    for json_file in directory.glob('*.json'):
+    for json_file in directory.rglob('*.json'):
         validate_file(json_file)
