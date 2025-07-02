@@ -1,0 +1,11 @@
+{
+  "name": "system-prompts-and-models-of-ai-tools",
+  "version": "1.0.0",
+  "main": "watcherWrap.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
