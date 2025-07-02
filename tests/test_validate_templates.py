@@ -29,3 +29,22 @@ def test_missing_api_key(tmp_path):
         del os.environ[validate_templates.API_KEY_ENV]
     with pytest.raises(validate_templates.MissingAPIKeyError):
         validate_templates.check_api_key()
+
+
+def test_validate_directory_recursive_success(tmp_path):
+    data = {"title": "t", "prompt": "p"}
+    subdir = tmp_path / "sub" / "inner"
+    subdir.mkdir(parents=True)
+    json_file = subdir / "tpl.json"
+    json_file.write_text(json.dumps(data))
+    validate_templates.validate_directory(tmp_path)
+
+
+def test_validate_directory_recursive_failure(tmp_path):
+    data = {"title": "t"}
+    subdir = tmp_path / "a" / "b"
+    subdir.mkdir(parents=True)
+    json_file = subdir / "tpl.json"
+    json_file.write_text(json.dumps(data))
+    with pytest.raises(validate_templates.InvalidTemplateError):
+        validate_templates.validate_directory(tmp_path)
